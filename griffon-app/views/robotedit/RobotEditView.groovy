@@ -15,7 +15,7 @@ mainFrame = application(title: 'RobotEdit',
 			label('Content Goes Here') // delete me
 			jxtaskPaneContainer {
 				jxtaskPane(title: 'Settings') {
-					button(addLibrary, constraints: LEFT)
+					button(addLibrary)
 					jxtable(id: 'personsTable') {
 						tableFormat = defaultTableFormat(columnNames: ['Name', 'LastName'])
 						// tableFormat = defaultAdvancedTableFormat(columns: [[name:'Name'], [name: 'LastName']])
