@@ -6,18 +6,10 @@ import ca.odell.glazedlists.SortedList
 import groovy.beans.Bindable
 
 class RobotEditModel {
-   // @Bindable String propName
-	EventList persons = new SortedList( new BasicEventList(),
-		{a, b -> a.name <=> b.name} as Comparator)
+	// @Bindable String propName
+	EventList persons = new BasicEventList()
 
 	RobotEditModel() {
-		persons.addAll([
-			[name: 'Adam',  lastName: 'Savage'],
-			[name: 'Jamie', lastName: 'Hyneman'],
-			[name: 'Kari',  lastName: 'Byron'],
-			[name: 'Grant', lastName: 'Imahara'],
-			[name: 'Tori',  lastName: 'Belleci'],
-			[name: 'Buster',  lastName: ''],
-		])
+		persons.addAll([col1: 'A', col2: 'B'])
 	}
 }

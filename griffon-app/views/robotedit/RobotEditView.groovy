@@ -1,5 +1,7 @@
 package robotedit
 
+import net.miginfocom.swing.MigLayout
+
 actions {
 	action(id: 'openHTMLFile', name: 'Open HTML file..', closure: controller.openHTMLFile)
 	action(id: 'addLibrary', name: 'Add Library', closure: controller.addLibrary)
@@ -10,17 +12,13 @@ mainFrame = application(title: 'RobotEdit',
 		//location: [50,50],
 		locationByPlatform:true,
 		iconImage: tangoIcon('go-home').image) {
-			migLayout()
-			// add content here
-			label('Content Goes Here') // delete me
-			jxtaskPaneContainer {
+			borderLayout()
+			jxtaskPaneContainer() {
 				jxtaskPane(title: 'Settings') {
 					button(addLibrary)
 					jxtable(id: 'personsTable') {
-						tableFormat = defaultTableFormat(columnNames: ['Name', 'LastName'])
-						// tableFormat = defaultAdvancedTableFormat(columns: [[name:'Name'], [name: 'LastName']])
+						tableFormat = defaultTableFormat(columnNames: ['Col1', 'Col2'])
 						eventTableModel(source: model.persons, format: tableFormat)
-						installTableComparatorChooser(source: model.persons)
 					}				}
 				jxtaskPane(title: 'Variables') {
 					button('Add Variable')
@@ -34,4 +32,3 @@ mainFrame = application(title: 'RobotEdit',
 				}
 			}
 		}
-
