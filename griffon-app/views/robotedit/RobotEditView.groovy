@@ -10,11 +10,12 @@ mainFrame = application(title: 'RobotEdit',
 		//location: [50,50],
 		locationByPlatform:true,
 		iconImage: tangoIcon('go-home').image) {
+			migLayout()
 			// add content here
 			label('Content Goes Here') // delete me
 			jxtaskPaneContainer {
 				jxtaskPane(title: 'Settings') {
-					button(addLibrary)
+					button(addLibrary, constraints: LEFT)
 					jxtable(id: 'personsTable') {
 						tableFormat = defaultTableFormat(columnNames: ['Name', 'LastName'])
 						// tableFormat = defaultAdvancedTableFormat(columns: [[name:'Name'], [name: 'LastName']])
