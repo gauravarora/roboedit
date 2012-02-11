@@ -13,3 +13,7 @@ log4j = {
            'griffon.app'
 }
 
+lookandfeel {
+	lookAndFeel = 'Substance'
+	theme = 'Business'
+}

@@ -1,24 +1,29 @@
 package robotedit
 
 class RobotEditController {
-    // these will be injected by Griffon
-    def model
-    def view
+	// these will be injected by Griffon
+	def model
+	def view
 
-    // void mvcGroupInit(Map args) {
-    //    // this method is called after model and view are injected
-    // }
+	// void mvcGroupInit(Map args) {
+	//    // this method is called after model and view are injected
+	// }
 
-    // void mvcGroupDestroy() {
-    //    // this method is called when the group is destroyed
-    // }
+	// void mvcGroupDestroy() {
+	//    // this method is called when the group is destroyed
+	// }
 
-    /*
-        Remember that actions will be called outside of the UI thread
-        by default. You can change this setting of course.
-        Please read chapter 9 of the Griffon Guide to know more.
-       
-    def action = { evt = null ->
-    }
-    */
+
+	def openHTMLFile = { evt = null ->
+		log.info 'Asked to open HTML file'
+		log.info 'Parsing file E:\\Projects-Groovy\\robotedit-trunk\\roboedit2'
+		def slurper = new XmlSlurper(new org.ccil.cowan.tagsoup.Parser())
+		//slurper.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+		def htmlParser = slurper.parse(getClass().classLoader.getResourceAsStream('y.html'))
+		htmlParser.'**'.findAll{ it.@class == 'name'}.each { println it }
+	}
+
+	def addLibrary = { evt = null ->
+		
+	}
 }
