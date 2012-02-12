@@ -1,6 +1,8 @@
 package robotedit
 
 
+import java.awt.ScrollPane;
+
 import javax.swing.JFileChooser
 
 import griffon.util.Metadata
@@ -12,16 +14,18 @@ actions {
 mainFrame = application(title: 'RobotEdit',
 		preferredSize: [600, 600],
 		pack: true,
-		location: [150, 50],
+		location: [250, 25],
 		locationByPlatform:true,
 		iconImage: tangoIcon('go-home').image) {
 			borderLayout()
 			jxtaskPaneContainer() {
 				jxtaskPane(title: 'Settings') {
 					button(addLibrary)
-					jxtable(id: 'settingsTable', autoResizeMode: JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS) {
-						tableFormat = defaultTableFormat(columnNames: model.columns)
-						eventTableModel(source: model.settings, format: tableFormat)
+					scrollPane() {
+						jxtable(id: 'settingsTable', autoResizeMode: JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS) {
+							tableFormat = defaultTableFormat(columnNames: model.columns)
+							eventTableModel(source: model.settings, format: tableFormat)
+						}
 					}
 				}
 				jxtaskPane(title: 'Variables') {
