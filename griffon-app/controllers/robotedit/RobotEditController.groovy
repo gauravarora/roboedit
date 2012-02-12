@@ -28,13 +28,14 @@ class RobotEditController {
 		def htmlParser = slurper.parse(getClass().classLoader.getResourceAsStream('y.html'))
 		htmlParser.'**'.findAll{ it.@class == 'name'}.each {
 			def map = [:]
-			def i = 1;
+			def i = model.columns.iterator()
 			it.parent().children().each  { c ->
-				map.put(col${i}, c)
+				map.put(i.next().toLowerCase(), c)
 				println c
 				i++ 
 				//model.persons.add([col1: c, col2: '']);
 			}
+			log.info "map is  ${map}"
 			model.persons.add(map)
 		}
 	}

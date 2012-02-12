@@ -8,8 +8,9 @@ import groovy.beans.Bindable
 class RobotEditModel {
 	// @Bindable String propName
 	EventList persons = new BasicEventList()
+	def columns = ['A', 'B', 'C', 'D']
 
 	RobotEditModel() {
-		persons.addAll([col1: 'A', col2: 'B'])
+		persons.addAll([[a: 'A', b: 'B', c: 'C', d: 'D']])
 	}
 }
