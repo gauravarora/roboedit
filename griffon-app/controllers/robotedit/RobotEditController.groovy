@@ -28,27 +28,36 @@ class RobotEditController {
 		def htmlParser = slurper.parse(getClass().classLoader.getResourceAsStream('y.html'))
 		println model.columns
 		htmlParser.'**'.findAll{ it.@id == 'setting'}.each {
-			it.children().each  { setting ->
-				def map = [:]
-				def i = model.columns.iterator()
-
-				setting.children().each { c ->
-					def str = c.text()
-					log.info "text is ${str} and is whitespace? ${str.allWhitespace}"
-					if (!str.allWhitespace) {
-						def n = i.next().toLowerCase()
-						map.put(n, c)
-					}
-				}
-				
-				log.info "map is  ${map}"
-				model.persons.add(map)
-
-			}
+			addSettings(model.settings, it)
 		}
 	}
 
 	def addLibrary = { evt = null ->
 
+	}
+
+	def addSettings = { table, node ->
+		log.info "Node has ${node.children().size()} children"
+
+		node.children().each  { setting ->
+			def map = [:]
+			def i = model.columns.iterator()
+
+			log.info "Child has ${setting.children().size()} children"
+
+			setting.children().each { c ->
+				def str = c.text()
+				log.info "text is ${str} and is whitespace? ${str.allWhitespace}"
+				if (!str.allWhitespace) {
+					def n = i.next().toLowerCase()
+					map.put(n, c)
+				}
+			}
+
+			if (map.size()) {
+				log.info "map is  ${map}"
+				table.add(map)
+			}
+		}
 	}
 }

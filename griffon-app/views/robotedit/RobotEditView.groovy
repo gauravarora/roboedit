@@ -18,7 +18,7 @@ mainFrame = application(title: 'RobotEdit',
 					button(addLibrary)
 					jxtable(id: 'personsTable') {
 						tableFormat = defaultTableFormat(columnNames: model.columns)
-						eventTableModel(source: model.persons, format: tableFormat)
+						eventTableModel(source: model.settings, format: tableFormat)
 					}				
 				}
 				jxtaskPane(title: 'Variables') {
