@@ -16,14 +16,17 @@ mainFrame = application(title: 'RobotEdit',
 			jxtaskPaneContainer() {
 				jxtaskPane(title: 'Settings') {
 					button(addLibrary)
-					jxtable(id: 'personsTable') {
+					jxtable(id: 'settingsTable') {
 						tableFormat = defaultTableFormat(columnNames: model.columns)
 						eventTableModel(source: model.settings, format: tableFormat)
 					}				
 				}
 				jxtaskPane(title: 'Variables') {
 					button('Add Variable')
-					label('something')
+					jxtable(id: 'settingsTable') {
+						tableFormat = defaultTableFormat(columnNames: model.columns)
+						eventTableModel(source: model.variables, format: tableFormat)
+					}
 				}
 			}
 			menuBar {

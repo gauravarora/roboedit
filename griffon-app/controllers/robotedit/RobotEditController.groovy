@@ -30,6 +30,9 @@ class RobotEditController {
 		htmlParser.'**'.findAll{ it.@id == 'setting'}.each {
 			addSettings(model.settings, it)
 		}
+		htmlParser.'**'.findAll{ it.@id == 'variable'}.each {
+			addSettings(model.variables, it)
+		}
 	}
 
 	def addLibrary = { evt = null ->
