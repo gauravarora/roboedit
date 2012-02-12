@@ -11,6 +11,7 @@ class RobotEditModel {
 	EventList variables = new BasicEventList()
 	EventList testcases= new BasicEventList()
 	EventList keywords = new BasicEventList()
+	
 	def columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O']
 
 	RobotEditModel() {

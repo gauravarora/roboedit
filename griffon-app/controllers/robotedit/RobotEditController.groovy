@@ -57,7 +57,7 @@ class RobotEditController {
 			addSettings(model.testcases, it)
 		}
 		htmlParser.'**'.findAll{ it.@id == 'keyword'}.each {
-			addSettings(model.testcases, it)
+			addSettings(model.keywords, it)
 		}
 	}
 
