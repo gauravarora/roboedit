@@ -2,28 +2,24 @@ package robotedit
 
 
 import javax.swing.JFileChooser
-import javax.swing.filechooser.FileFilter
+
+import griffon.util.Metadata
 
 actions {
 	action(id: 'openHTMLFile', name: 'Open HTML file..', closure: controller.openHTMLFile)
 	action(id: 'addLibrary', name: 'Add Library', closure: controller.addLibrary)
 }
-fileChooserWindow = fileChooser(dialogTitle: 'Choose an Html file', fileSelectionMode: JFileChooser.FILES_ONLY,
-		fileFilter: [getDescription: {-> 'HTML files'},accept: { f->
-				f ==~ /.*?\.html/ || f.isDirectory()
-			}] as FileFilter)
-
 mainFrame = application(title: 'RobotEdit',
 		preferredSize: [600, 600],
 		pack: true,
-		location: [50, 50],
+		location: [150, 50],
 		locationByPlatform:true,
 		iconImage: tangoIcon('go-home').image) {
 			borderLayout()
 			jxtaskPaneContainer() {
 				jxtaskPane(title: 'Settings') {
 					button(addLibrary)
-					jxtable(id: 'settingsTable') {
+					jxtable(id: 'settingsTable', autoResizeMode: JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS) {
 						tableFormat = defaultTableFormat(columnNames: model.columns)
 						eventTableModel(source: model.settings, format: tableFormat)
 					}

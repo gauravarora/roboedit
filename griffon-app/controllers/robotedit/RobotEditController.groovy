@@ -9,6 +9,7 @@ class RobotEditController {
 	// these will be injected by Griffon
 	def model
 	def view
+	def builder
 
 	// void mvcGroupInit(Map args) {
 	//    // this method is called after model and view are injected
@@ -22,12 +23,24 @@ class RobotEditController {
 		log.info 'Asked to open HTML file'
 
 		def openResult;
+		def fileChooserWindow;
+		def baseDir = Metadata.getCurrent().getGriffonStartDirSafe() as File
+		log.info 'basedir -> ' +  baseDir
+
 		edt {
-			openResult = view.fileChooserWindow.showOpenDialog(view.mainFrame)
+			//			def fileChooserWindow = builder.fileChooser(currentDirectory: baseDir, dialogTitle: 'Choose an Html file',
+			//					fileSelectionMode: JFileChooser.FILES_ONLY,
+			//					fileFilter: [getDescription: {-> 'HTML files'},accept: { f->
+			//							f ==~ /.*?\.html/ || f.isDirectory()
+			//						}] as FileFilter)
+			fileChooserWindow = builder.fileChooser(currentDirectory: baseDir, dialogTitle: 'Choose an Html file',
+					fileSelectionMode: JFileChooser.FILES_ONLY)
+
+			openResult = fileChooserWindow.showOpenDialog(view.mainFrame)
 		}
-		
+
 		if(openResult != JFileChooser.APPROVE_OPTION) return //user cancelled
-		def configFile = fc.selectedFile
+		def configFile = fileChooserWindow.selectedFile
 
 		log.info 'Parsing file ' + configFile
 		def slurper = new XmlSlurper(new org.ccil.cowan.tagsoup.Parser())
