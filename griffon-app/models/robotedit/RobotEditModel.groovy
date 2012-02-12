@@ -11,6 +11,6 @@ class RobotEditModel {
 	def columns = ['A', 'B', 'C', 'D']
 
 	RobotEditModel() {
-		persons.addAll([[a: 'A', b: 'B', c: 'C', d: 'D']])
+		
 	}
 }

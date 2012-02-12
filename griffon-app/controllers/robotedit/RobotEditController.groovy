@@ -26,13 +26,17 @@ class RobotEditController {
 		def slurper = new XmlSlurper(new org.ccil.cowan.tagsoup.Parser())
 		//slurper.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
 		def htmlParser = slurper.parse(getClass().classLoader.getResourceAsStream('y.html'))
+		println model.columns
 		htmlParser.'**'.findAll{ it.@class == 'name'}.each {
 			def map = [:]
 			def i = model.columns.iterator()
 			it.parent().children().each  { c ->
-				map.put(i.next().toLowerCase(), c)
-				println c
-				i++ 
+				def str = c.text()
+				log.info "text is ${str} and is whitespace? ${str.allWhitespace}"
+				if (!str.allWhitespace) {
+					def n = i.next().toLowerCase()
+					map.put(n, c)
+				}
 				//model.persons.add([col1: c, col2: '']);
 			}
 			log.info "map is  ${map}"
