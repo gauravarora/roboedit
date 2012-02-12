@@ -23,7 +23,10 @@ class RobotEditController {
 	def openHTMLFile = { evt = null ->
 		log.info 'Asked to open HTML file'
 
-		def openResult = view.fileChooserWindow.showOpenDialog(view.mainFrame)
+		def openResult =
+				edt {
+					view.fileChooserWindow.showOpenDialog(view.mainFrame)
+				}
 
 		log.info 'Parsing file E:\\Projects-Groovy\\robotedit-trunk\\roboedit2'
 		def slurper = new XmlSlurper(new org.ccil.cowan.tagsoup.Parser())

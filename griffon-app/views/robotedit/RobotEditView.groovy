@@ -2,16 +2,21 @@ package robotedit
 
 import net.miginfocom.swing.MigLayout
 
+import javax.swing.filechooser.FileFilter
+
 actions {
 	action(id: 'openHTMLFile', name: 'Open HTML file..', closure: controller.openHTMLFile)
 	action(id: 'addLibrary', name: 'Add Library', closure: controller.addLibrary)
 }
-fileChooserWindow = fileChooser()
+fileChooserWindow = fileChooser(dialogTitle: 'Choose an Html file', fileSelectionMode: JFileChooser.FILES_ONLY,
+		fileFilter: [getDescription: {-> 'HTML files'},accept: { f->
+				f ==~ /.*?\.html/ || f.isDirectory()
+			}] as FileFilter)
 
 mainFrame = application(title: 'RobotEdit',
 		preferredSize: [600, 600],
 		pack: true,
-		location: [50,50],
+		location: [50, 50],
 		locationByPlatform:true,
 		iconImage: tangoIcon('go-home').image) {
 			borderLayout()
@@ -44,7 +49,6 @@ mainFrame = application(title: 'RobotEdit',
 						eventTableModel(source: model.keywords, format: tableFormat)
 					}
 				}
-
 			}
 			menuBar {
 				menu("File") {
