@@ -1,7 +1,7 @@
 package robotedit
 
-import net.miginfocom.swing.MigLayout
 
+import javax.swing.JFileChooser
 import javax.swing.filechooser.FileFilter
 
 actions {

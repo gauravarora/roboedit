@@ -1,10 +1,9 @@
 package robotedit
 
-import java.rmi.server.LoaderHandler;
-import java.util.logging.Logger;
 import org.ccil.cowan.tagsoup.*
 import groovy.xml.*
-import javax.xml.parsers.SAXParser
+
+import javax.swing.JFileChooser
 
 class RobotEditController {
 	// these will be injected by Griffon
@@ -19,16 +18,18 @@ class RobotEditController {
 	//    // this method is called when the group is destroyed
 	// }
 
-
 	def openHTMLFile = { evt = null ->
 		log.info 'Asked to open HTML file'
 
-		def openResult =
-				edt {
-					view.fileChooserWindow.showOpenDialog(view.mainFrame)
-				}
+		def openResult;
+		edt {
+			openResult = view.fileChooserWindow.showOpenDialog(view.mainFrame)
+		}
+		
+		if(openResult != JFileChooser.APPROVE_OPTION) return //user cancelled
+		def configFile = fc.selectedFile
 
-		log.info 'Parsing file E:\\Projects-Groovy\\robotedit-trunk\\roboedit2'
+		log.info 'Parsing file ' + configFile
 		def slurper = new XmlSlurper(new org.ccil.cowan.tagsoup.Parser())
 		//slurper.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
 		def htmlParser = slurper.parse(getClass().classLoader.getResourceAsStream('y.html'))
