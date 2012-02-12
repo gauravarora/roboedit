@@ -8,7 +8,7 @@ import groovy.beans.Bindable
 class RobotEditModel {
 	// @Bindable String propName
 	EventList persons = new BasicEventList()
-	def columns = ['A', 'B', 'C', 'D']
+	def columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', ]
 
 	RobotEditModel() {
 		
