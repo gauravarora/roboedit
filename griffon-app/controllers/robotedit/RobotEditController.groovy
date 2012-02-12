@@ -27,20 +27,24 @@ class RobotEditController {
 		//slurper.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
 		def htmlParser = slurper.parse(getClass().classLoader.getResourceAsStream('y.html'))
 		println model.columns
-		htmlParser.'**'.findAll{ it.@class == 'name'}.each {
-			def map = [:]
-			def i = model.columns.iterator()
-			it.parent().children().each  { c ->
-				def str = c.text()
-				log.info "text is ${str} and is whitespace? ${str.allWhitespace}"
-				if (!str.allWhitespace) {
-					def n = i.next().toLowerCase()
-					map.put(n, c)
+		htmlParser.'**'.findAll{ it.@id == 'setting'}.each {
+			it.children().each  { setting ->
+				def map = [:]
+				def i = model.columns.iterator()
+
+				setting.children().each { c ->
+					def str = c.text()
+					log.info "text is ${str} and is whitespace? ${str.allWhitespace}"
+					if (!str.allWhitespace) {
+						def n = i.next().toLowerCase()
+						map.put(n, c)
+					}
 				}
-				//model.persons.add([col1: c, col2: '']);
+				
+				log.info "map is  ${map}"
+				model.persons.add(map)
+
 			}
-			log.info "map is  ${map}"
-			model.persons.add(map)
 		}
 	}
 
