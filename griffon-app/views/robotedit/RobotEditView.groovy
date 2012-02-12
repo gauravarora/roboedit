@@ -19,7 +19,7 @@ mainFrame = application(title: 'RobotEdit',
 					jxtable(id: 'settingsTable') {
 						tableFormat = defaultTableFormat(columnNames: model.columns)
 						eventTableModel(source: model.settings, format: tableFormat)
-					}				
+					}
 				}
 				jxtaskPane(title: 'Variables') {
 					button('Add Variable')
@@ -28,6 +28,21 @@ mainFrame = application(title: 'RobotEdit',
 						eventTableModel(source: model.variables, format: tableFormat)
 					}
 				}
+				jxtaskPane(title: 'Test Cases') {
+					button('Add Variable')
+					jxtable(id: 'testcasesTable') {
+						tableFormat = defaultTableFormat(columnNames: model.columns)
+						eventTableModel(source: model.testcases, format: tableFormat)
+					}
+				}
+				jxtaskPane(title: 'Keywords') {
+					button('Add Variable')
+					jxtable(id: 'keywordsTable') {
+						tableFormat = defaultTableFormat(columnNames: model.columns)
+						eventTableModel(source: model.keywords, format: tableFormat)
+					}
+				}
+
 			}
 			menuBar {
 				menu("File") {

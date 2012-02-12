@@ -33,6 +33,12 @@ class RobotEditController {
 		htmlParser.'**'.findAll{ it.@id == 'variable'}.each {
 			addSettings(model.variables, it)
 		}
+		htmlParser.'**'.findAll{ it.@id == 'testcase'}.each {
+			addSettings(model.testcases, it)
+		}
+		htmlParser.'**'.findAll{ it.@id == 'keyword'}.each {
+			addSettings(model.testcases, it)
+		}
 	}
 
 	def addLibrary = { evt = null ->
@@ -57,7 +63,7 @@ class RobotEditController {
 				}
 			}
 
-			if (map.size()) {
+			if (map.size() > 0) {
 				log.info "map is  ${map}"
 				table.add(map)
 			}
