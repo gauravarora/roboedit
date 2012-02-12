@@ -6,10 +6,12 @@ actions {
 	action(id: 'openHTMLFile', name: 'Open HTML file..', closure: controller.openHTMLFile)
 	action(id: 'addLibrary', name: 'Add Library', closure: controller.addLibrary)
 }
+fileChooserWindow = fileChooser()
+
 mainFrame = application(title: 'RobotEdit',
-		preferredSize: [320, 240],
+		preferredSize: [600, 600],
 		pack: true,
-		//location: [50,50],
+		location: [50,50],
 		locationByPlatform:true,
 		iconImage: tangoIcon('go-home').image) {
 			borderLayout()

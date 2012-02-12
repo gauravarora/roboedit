@@ -22,6 +22,9 @@ class RobotEditController {
 
 	def openHTMLFile = { evt = null ->
 		log.info 'Asked to open HTML file'
+
+		def openResult = view.fileChooserWindow.showOpenDialog(view.mainFrame)
+
 		log.info 'Parsing file E:\\Projects-Groovy\\robotedit-trunk\\roboedit2'
 		def slurper = new XmlSlurper(new org.ccil.cowan.tagsoup.Parser())
 		//slurper.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
@@ -54,10 +57,10 @@ class RobotEditController {
 
 			log.info "Child has ${setting.children().size()} children"
 
-			setting.children().each { c ->
+			setting.children().eachWithIndex { c, idx ->
 				def str = c.text()
 				log.info "text is ${str} and is whitespace? ${str.allWhitespace}"
-				if (!str.allWhitespace) {
+				if (!str.allWhitespace && idx < model.columns.size()) {
 					def n = i.next().toLowerCase()
 					map.put(n, c)
 				}
