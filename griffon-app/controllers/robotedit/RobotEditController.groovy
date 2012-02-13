@@ -29,7 +29,7 @@ class RobotEditController {
 
 		edt {
 			fileChooserWindow = builder.fileChooser(currentDirectory: baseDir, dialogTitle: 'Choose an Html file',
-			fileSelectionMode: JFileChooser.FILES_ONLY)
+					fileSelectionMode: JFileChooser.FILES_ONLY)
 
 			openResult = fileChooserWindow.showOpenDialog(view.mainFrame)
 		}
@@ -47,18 +47,22 @@ class RobotEditController {
 		def settingsTableNode = page.BODY.TABLE.find { table ->
 			table.TBODY.TR.TH.text() == 'Settings'
 		}
-
 		populateTable(settingsTableNode, model.settings)
 
-//		page.'**'.findAll{ it.@id == 'variable'}.each {
-//			addSettings(model.variables, it)
-//		}
-//		page.'**'.findAll{ it.@id == 'testcase'}.each {
-//			addSettings(model.testcases, it)
-//		}
-//		page.'**'.findAll{ it.@id == 'keyword'}.each {
-//			addSettings(model.keywords, it)
-//		}
+		def variableTableNode = page.BODY.TABLE.find { table ->
+			table.TBODY.TR.TH.text() == 'Variables'
+		}
+		populateTable(variableTableNode, model.variables)
+
+		def testcaseTableNode = page.BODY.TABLE.find { table ->
+			table.TBODY.TR.TH.text() == 'Test Cases'
+		}
+		populateTable(testcaseTableNode, model.testcases)
+
+		def keywordTableNode = page.BODY.TABLE.find { table ->
+			table.TBODY.TR.TH.text() == 'Keywords'
+		}
+		populateTable(keywordTableNode, model.keywords)
 	}
 
 	def populateTable = { table, list ->
@@ -82,8 +86,6 @@ class RobotEditController {
 		}
 	}
 
-	def addLibrary = { evt = null ->
-
-	}
-
+	def addLibrary = { evt = null -> println 'Add lib called' }
+	def quit = { app.shutdown() }
 }
