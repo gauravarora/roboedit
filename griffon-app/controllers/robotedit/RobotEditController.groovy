@@ -28,11 +28,6 @@ class RobotEditController {
 		log.info 'basedir -> ' +  baseDir
 
 		edt {
-			//			def fileChooserWindow = builder.fileChooser(currentDirectory: baseDir, dialogTitle: 'Choose an Html file',
-			//					fileSelectionMode: JFileChooser.FILES_ONLY,
-			//					fileFilter: [getDescription: {-> 'HTML files'},accept: { f->
-			//							f ==~ /.*?\.html/ || f.isDirectory()
-			//						}] as FileFilter)
 			fileChooserWindow = builder.fileChooser(currentDirectory: baseDir, dialogTitle: 'Choose an Html file',
 					fileSelectionMode: JFileChooser.FILES_ONLY)
 
@@ -43,8 +38,10 @@ class RobotEditController {
 		def configFile = fileChooserWindow.selectedFile
 
 		log.info 'Parsing file ' + configFile
-		def slurper = new XmlSlurper(new org.ccil.cowan.tagsoup.Parser())
-		//slurper.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+		def parser = new org.cyberneko.html.parsers.SAXParser()
+		parser.setFeature('http://xml.org/sax/features/namespaces', false)
+
+		def slurper = new XmlSlurper(parser)
 		def htmlParser = slurper.parse(getClass().classLoader.getResourceAsStream('y.html'))
 		println model.columns
 		htmlParser.'**'.findAll{ it.@id == 'setting'}.each {
