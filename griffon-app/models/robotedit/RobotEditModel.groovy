@@ -7,7 +7,7 @@ import groovy.beans.Bindable
 
 class RobotEditModel {
 	// @Bindable String propName
-	EventList settings = new BasicEventList()
+	EventList settings = new BasicEventList(100)
 	EventList variables = new BasicEventList()
 	EventList testcases= new BasicEventList()
 	EventList keywords = new BasicEventList()

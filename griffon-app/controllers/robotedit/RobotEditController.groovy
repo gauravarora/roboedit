@@ -22,14 +22,14 @@ class RobotEditController {
 	def openHTMLFile = { evt = null ->
 		log.info 'Asked to open HTML file'
 
-		def openResult;
-		def fileChooserWindow;
+		def openResult
+		def fileChooserWindow
 		def baseDir = Metadata.getCurrent().getGriffonStartDirSafe() as File
 		log.info 'basedir -> ' +  baseDir
 
 		edt {
 			fileChooserWindow = builder.fileChooser(currentDirectory: baseDir, dialogTitle: 'Choose an Html file',
-					fileSelectionMode: JFileChooser.FILES_ONLY)
+			fileSelectionMode: JFileChooser.FILES_ONLY)
 
 			openResult = fileChooserWindow.showOpenDialog(view.mainFrame)
 		}
@@ -42,19 +42,43 @@ class RobotEditController {
 		parser.setFeature('http://xml.org/sax/features/namespaces', false)
 
 		def slurper = new XmlSlurper(parser)
-		def htmlParser = slurper.parse(getClass().classLoader.getResourceAsStream('y.html'))
-		println model.columns
-		htmlParser.'**'.findAll{ it.@id == 'setting'}.each {
-			addSettings(model.settings, it)
+		def page = slurper.parse(getClass().classLoader.getResourceAsStream('y.html'))
+
+		def settingsTableNode = page.BODY.TABLE.find { table ->
+			table.TBODY.TR.TH.text() == 'Settings'
 		}
-		htmlParser.'**'.findAll{ it.@id == 'variable'}.each {
-			addSettings(model.variables, it)
-		}
-		htmlParser.'**'.findAll{ it.@id == 'testcase'}.each {
-			addSettings(model.testcases, it)
-		}
-		htmlParser.'**'.findAll{ it.@id == 'keyword'}.each {
-			addSettings(model.keywords, it)
+
+		populateTable(settingsTableNode, model.settings)
+
+//		page.'**'.findAll{ it.@id == 'variable'}.each {
+//			addSettings(model.variables, it)
+//		}
+//		page.'**'.findAll{ it.@id == 'testcase'}.each {
+//			addSettings(model.testcases, it)
+//		}
+//		page.'**'.findAll{ it.@id == 'keyword'}.each {
+//			addSettings(model.keywords, it)
+//		}
+	}
+
+	def populateTable = { table, list ->
+		def rowCnt = table.TBODY.TR.size() - 1
+		table.TBODY.TR[1..rowCnt].each { row ->
+			println row
+			def map = [:]
+			def i = model.columns.iterator()
+
+			row.TD.eachWithIndex { cell, idx ->
+				def str = cell.text()
+				if (!str.allWhitespace && idx < model.columns.size()) {
+					def n = i.next().toLowerCase()
+					map.put(n, str)
+				}
+			}
+			log.info "map is  ${map}"
+			if (map.size() > 0) {
+				list.add(map)
+			}
 		}
 	}
 
@@ -62,28 +86,4 @@ class RobotEditController {
 
 	}
 
-	def addSettings = { table, node ->
-		log.info "Node has ${node.children().size()} children"
-
-		node.children().each  { setting ->
-			def map = [:]
-			def i = model.columns.iterator()
-
-			log.info "Child has ${setting.children().size()} children"
-
-			setting.children().eachWithIndex { c, idx ->
-				def str = c.text()
-				log.info "text is ${str} and is whitespace? ${str.allWhitespace}"
-				if (!str.allWhitespace && idx < model.columns.size()) {
-					def n = i.next().toLowerCase()
-					map.put(n, c)
-				}
-			}
-
-			if (map.size() > 0) {
-				log.info "map is  ${map}"
-				table.add(map)
-			}
-		}
-	}
 }
