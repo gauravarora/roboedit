@@ -83,7 +83,7 @@ class RobotEditController {
 			if (map.size() > 0) {
 				list.add(map)
 			}
-			if (rowCnt == rnum) list.add([:])
+			if (rowCnt   == rnum) list.add([:])
 		}
 	}
 

@@ -23,7 +23,7 @@ mainFrame = application(title: 'RobotEdit',
 					jxtaskPane(title: 'Settings', collapsed: false) {
 						panel() { button(addLibrary) }
 						scrollPane() {
-							jxtable(id: 'settingsTable', autoResizeMode: JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS, autoCreateRowSorter: false, rowSorter: null) {
+							jxtable(id: 'settingsTable', autoResizeMode: JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS, autoCreateRowSorter: false, rowSorter: null, preferredScrollableViewportSize:[1000, 200]) {
 								tableFormat = defaultTableFormat(columnNames: model.columns)
 								eventTableModel(source: model.settings, format: tableFormat)
 							}
