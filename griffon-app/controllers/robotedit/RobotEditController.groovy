@@ -83,7 +83,13 @@ class RobotEditController {
 			if (map.size() > 0) {
 				list.add(map)
 			}
-			if (rowCnt   == rnum) list.add([:])
+			log.info 'rowCnt: ' + rowCnt + '; rnum: ' + rnum
+			if ((rowCnt - 1)   == rnum) {
+				def tmap = [:]
+				model.columns.each {tmap.put( it.toLowerCase(), '' )}
+				list.add(tmap)
+				log.info "empty map is  ${tmap}"
+			}
 		}
 	}
 
