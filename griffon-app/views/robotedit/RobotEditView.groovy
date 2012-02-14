@@ -59,7 +59,7 @@ mainFrame = application(title: 'RobotEdit',
 				}
 			}
 			menuBar {
-				menu("File") {
+				menu(text: 'File', mnemonic: 'F') {
 					menuItem(openHTMLFile)
 					separator()
 					menuItem(quitAction)

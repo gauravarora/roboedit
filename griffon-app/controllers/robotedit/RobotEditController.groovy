@@ -67,7 +67,7 @@ class RobotEditController {
 
 	def populateTable = { table, list ->
 		def rowCnt = table.TBODY.TR.size() - 1
-		table.TBODY.TR[1..rowCnt].each { row ->
+		table.TBODY.TR[1..rowCnt].eachWithIndex { row, rnum ->
 			println row
 			def map = [:]
 			def i = model.columns.iterator()
@@ -83,6 +83,7 @@ class RobotEditController {
 			if (map.size() > 0) {
 				list.add(map)
 			}
+			if (rowCnt == rnum) list.add([:])
 		}
 	}
 
